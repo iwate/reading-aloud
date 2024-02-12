@@ -48,14 +48,16 @@ recognition.continuous = false;
 recognition.lang = 'en-US';
 recognition.interimResults = false;
 recognition.maxAlternatives = 1;
-// if (SpeechGrammarList) {
-//   // SpeechGrammarList is not currently available in Safari, and does not have any effect in any other browser.
-//   // This code is provided as a demonstration of possible capability. You may choose not to use it.
-//   var speechRecognitionList = new SpeechGrammarList();
-//   var grammar = '#JSGF V1.0; grammar colors; public <color> = ' + colors.join(' | ') + ' ;'
-//   speechRecognitionList.addFromString(grammar, 1);
-//   recognition.grammars = speechRecognitionList;
-// }
+if (SpeechGrammarList) {
+  // SpeechGrammarList is not currently available in Safari, and does not have any effect in any other browser.
+  // This code is provided as a demonstration of possible capability. You may choose not to use it.
+  const speechRecognitionList = new SpeechGrammarList();
+  for (let text of texts) {
+    const grammar = '#JSGF V1.0; grammar sentence; public <sentence> = ' + text + ' ;'
+    speechRecognitionList.addFromString(grammar);
+  }
+  recognition.grammars = speechRecognitionList;
+}
 
 const sentence = document.querySelector('.sentence');
 const diagnostic = document.querySelector('.output');
