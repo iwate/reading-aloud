@@ -61,7 +61,7 @@ document.body.onclick = function() {
 
 recognition.onresult = function(event) {
   const transcript = event.results[0][0].transcript;
-  diagnostic.textContent = 'Result received: ' + rec + '.';
+  diagnostic.textContent = 'Result received: ' + transcript + '.';
   console.log('Confidence: ' + event.results[0][0].confidence);
 
   if (transcript === texts[index]) {
