@@ -1,3 +1,9 @@
+window.onerror = function (message, source, lineno, colno, error) {
+    alert(message);
+    console.log(message, source, lineno, colno, error);
+    return true;
+}
+
 var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
 var SpeechGrammarList = SpeechGrammarList || window.webkitSpeechGrammarList
 var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent
