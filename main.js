@@ -71,7 +71,6 @@ recognition.onresult = function(event) {
   diagnostic.textContent = 'Result received: ';
   const transcript = event.results[0][0].transcript;
   diagnostic.textContent = 'Result received: ' + transcript + '.';
-  console.log('Confidence: ' + event.results[0][0].confidence);
 
   if (normalizeText(transcript) === normalizeText(texts[index])) {
     if (next()) {
