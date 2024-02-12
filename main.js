@@ -73,7 +73,7 @@ recognition.onresult = function(event) {
   diagnostic.textContent = 'Result received: ' + transcript + '.';
   console.log('Confidence: ' + event.results[0][0].confidence);
 
-  if (transcript === texts[index]) {
+  if (normalizeText(transcript) === normalizeText(texts[index])) {
     if (next()) {
         diagnostic.textContent = 'Correct!';
     }
@@ -96,3 +96,8 @@ recognition.onerror = function(event) {
 }
 
 next(0)
+
+
+function normalizeText(text) {
+    return text.toLowerCase().replace(/\s+/g, ' ').replace(/[?.,]/g, '').trim();
+}
