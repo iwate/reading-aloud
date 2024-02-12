@@ -1,0 +1,23 @@
+{
+  "name": "Alouding",
+  "description": "Work out tool for English speaking.",
+  "type": "privileged",
+  "launch_path": "/index.html",
+  "icons": {
+    "512": "/img/512.png",
+    "128": "/img/128.png"
+  },
+  "developer": {
+    "name": "Chris Mills",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API"
+  },
+  "default_locale": "en",
+  "permissions": {
+    "audio-capture" : {
+      "description" : "Audio capture"
+    },
+    "speech-recognition" : {
+      "description" : "Speech recognition"
+    }
+  }
+}
