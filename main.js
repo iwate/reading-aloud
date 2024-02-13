@@ -7,25 +7,29 @@ window.onerror = function (message, source, lineno, colno, error) {
 var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
 var SpeechGrammarList = SpeechGrammarList || window.webkitSpeechGrammarList
 var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent
+var synth = window.speechSynthesis;
 
 if (!SpeechRecognition) {
   alert('Speech Recognition is not supported in your browser');
 }
-// if (!SpeechGrammarList) {
-//   alert('Speech Recognition is not supported in your browser');
-// }
 if (!SpeechRecognitionEvent) {
     alert('Speech Recognition is not supported in your browser');
 }
+if (!synth) {
+    alert('Speech Synthesis is not supported in your browser');
+}
 
-const texts = [
-    'How are you doing today?',
-    'Great! How about you?',
-    'I am doing well. Thank you for asking.',
-    'You are welcome.',
-]
+let texts = JSON.parse(localStorage.getItem('texts') || '[]');
+let index = parseInt(localStorage.getItem('index')||'0');
 
-let index = 0;
+if (texts.length == 0) {
+    texts = [
+        'How are you doing today?',
+        'Great! How about you?',
+        'I am doing well. Thank you for asking.',
+        'You are welcome.',
+    ]
+}
 
 next = (seek) => {
     if (typeof seek === 'number') {
@@ -39,6 +43,7 @@ next = (seek) => {
     }
     else {
         sentence.textContent = texts[index];
+        play(texts[index]);
         return true;
     }
 }
@@ -61,11 +66,21 @@ if (SpeechGrammarList) {
 
 const sentence = document.querySelector('.sentence');
 const diagnostic = document.querySelector('.output');
+const record = document.querySelector('.record');
+const replay = document.querySelector('.replay');
+const settings = document.querySelector('.settings');
+const save = document.querySelector('.save');
+const dialog = document.querySelector('dialog');
 
-document.body.onclick = function() {
+record.onclick = function() {
   recognition.start();
   diagnostic.textContent = 'Listening...';
 }
+
+replay.onclick = function() {
+  play(texts[index]);
+}
+
 
 recognition.onresult = function(event) {
   diagnostic.textContent = 'Result received: ';
@@ -100,3 +115,19 @@ next(0)
 function normalizeText(text) {
     return text.toLowerCase().replace(/\s+/g, ' ').replace(/[!?.,]/g, '').trim();
 }
+
+function play(text) {
+    const utterThis = new SpeechSynthesisUtterance(text);
+    synth.speak(utterThis);
+}
+
+settings.addEventListener('click', function () {
+    document.forms[0].sentences.value = texts.join('\n');
+    dialog.showModal();
+})
+save.addEventListener('click', function () {
+    texts = document.forms[0].sentences.value.split('\n');
+    localStorage.setItem('texts', JSON.stringify(texts));
+    localStorage.setItem('index', '0');
+    dialog.close();
+})
