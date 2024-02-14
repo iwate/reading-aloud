@@ -119,7 +119,11 @@ next(0)
 
 
 function normalizeText(text) {
-    return text.toLowerCase().replace(/\s+/g, ' ').replace(/[!?.,]/g, '').trim();
+    return text.toLowerCase()
+      .replace(/\s+/g, ' ')
+      .replace(/[!?.]/g, '')
+      .replace(/:00/g, '')
+      .trim();
 }
 
 function play(text) {
