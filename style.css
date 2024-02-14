@@ -73,3 +73,13 @@ dialog form {
         height: 80svh;
     }
 }
+
+summary::-webkit-details-marker {
+    display:none;
+}
+
+summary {
+    color: #aaa;
+    display: block;
+    list-style: none;
+}

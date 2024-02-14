@@ -64,6 +64,7 @@ if (SpeechGrammarList) {
   recognition.grammars = speechRecognitionList;
 }
 
+const sentenceContainer = document.querySelector('.sentence-container');
 const sentence = document.querySelector('.sentence');
 const diagnostic = document.querySelector('.output');
 const record = document.querySelector('.record');
@@ -71,6 +72,11 @@ const replay = document.querySelector('.replay');
 const settings = document.querySelector('.settings');
 const save = document.querySelector('.save');
 const dialog = document.querySelector('dialog');
+
+sentenceContainer.open = localStorage.getItem('view-sentence') == 'on';
+sentenceContainer.addEventListener('toggle', function() {
+  localStorage.setItem('view-sentence', sentenceContainer.open ? 'on':'off');
+})
 
 record.onclick = function() {
   recognition.start();
@@ -80,7 +86,6 @@ record.onclick = function() {
 replay.onclick = function() {
   play(texts[index]);
 }
-
 
 recognition.onresult = function(event) {
   diagnostic.textContent = 'Result received: ';
