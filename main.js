@@ -25,7 +25,11 @@ let index = parseInt(localStorage.getItem('index')||'0');
 if (texts.length == 0) {
   const res = await fetch('default.txt');
   const body = await res.text();
-  texts = body.split('\n');
+  texts = body
+    .split('\n')
+    .map(line => line.trim())
+    .filter(line => line.length > 0)
+    .filter(line => !line.startsWith('#'));
 }
 
 const next = (seek) => {
