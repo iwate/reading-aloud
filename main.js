@@ -1,7 +1,7 @@
 window.onerror = function (message, source, lineno, colno, error) {
-    alert(message);
-    console.log(message, source, lineno, colno, error);
-    return true;
+  alert(message);
+  console.log(message, source, lineno, colno, error);
+  return true;
 }
 
 var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
@@ -13,40 +13,39 @@ if (!SpeechRecognition) {
   alert('Speech Recognition is not supported in your browser');
 }
 if (!SpeechRecognitionEvent) {
-    alert('Speech Recognition is not supported in your browser');
+  alert('Speech Recognition is not supported in your browser');
 }
 if (!synth) {
-    alert('Speech Synthesis is not supported in your browser');
+  alert('Speech Synthesis is not supported in your browser');
 }
 
-let texts = JSON.parse(localStorage.getItem('texts') || '[]');
-let index = parseInt(localStorage.getItem('index')||'0');
-
-if (texts.length == 0) {
-  const res = await fetch('default.txt');
-  const body = await res.text();
-  texts = body
+function parseTexts(data) {
+  return (data || '')
     .split('\n')
     .map(line => line.trim())
     .filter(line => line.length > 0)
     .filter(line => !line.startsWith('#'));
 }
 
+const raw = localStorage.getItem('texts') || (await (await fetch('default.txt')).text());
+const texts = parseTexts(raw);
+let index = parseInt(localStorage.getItem('index') || '0');
+
 const next = (seek) => {
-    if (typeof seek === 'number') {
-        index = seek;
-    }
-    else {
-        index++;
-    }
-    if (index >= texts.length) {
-        return false
-    }
-    else {
-        sentence.textContent = texts[index];
-        play(texts[index]);
-        return true;
-    }
+  if (typeof seek === 'number') {
+    index = seek;
+  }
+  else {
+    index++;
+  }
+  if (index >= texts.length) {
+    return false
+  }
+  else {
+    sentence.textContent = texts[index];
+    play(texts[index]);
+    return true;
+  }
 }
 
 const recognition = new SpeechRecognition();
@@ -75,43 +74,43 @@ const save = document.querySelector('.save');
 const dialog = document.querySelector('dialog');
 
 sentenceContainer.open = localStorage.getItem('view-sentence') != 'off';
-sentenceContainer.addEventListener('toggle', function() {
-  localStorage.setItem('view-sentence', sentenceContainer.open ? 'on':'off');
+sentenceContainer.addEventListener('toggle', function () {
+  localStorage.setItem('view-sentence', sentenceContainer.open ? 'on' : 'off');
 })
 
-record.onclick = function() {
+record.onclick = function () {
   recognition.start();
   diagnostic.textContent = 'Listening...';
 }
 
-replay.onclick = function() {
+replay.onclick = function () {
   play(texts[index]);
 }
 
-recognition.onresult = function(event) {
+recognition.onresult = function (event) {
   diagnostic.textContent = 'Result received: ';
   const transcript = event.results[0][0].transcript;
   diagnostic.textContent = 'Result received: ' + transcript + '.';
 
   if (normalizeText(transcript) === normalizeText(texts[index])) {
     if (next()) {
-        diagnostic.textContent = 'Correct!';
+      diagnostic.textContent = 'Correct!';
     }
     else {
-        diagnostic.textContent = 'Congrats! You have completed the conversation!';  
+      diagnostic.textContent = 'Congrats! You have completed the conversation!';
     }
   }
 }
 
-recognition.onspeechend = function() {
+recognition.onspeechend = function () {
   recognition.stop();
 }
 
-recognition.onnomatch = function(event) {
+recognition.onnomatch = function (event) {
   diagnostic.textContent = "I didn't recognise.";
 }
 
-recognition.onerror = function(event) {
+recognition.onerror = function (event) {
   diagnostic.textContent = 'Error occurred in recognition: ' + event.error;
 }
 
@@ -119,25 +118,24 @@ next(0)
 
 
 function normalizeText(text) {
-    return text.toLowerCase()
-      .replace(/\s+/g, ' ')
-      .replace(/[!?.]/g, '')
-      .replace(/:00/g, '')
-      .trim();
+  return text.toLowerCase()
+    .replace(/\s+/g, ' ')
+    .replace(/[!?.]/g, '')
+    .replace(/:00/g, '')
+    .trim();
 }
 
 function play(text) {
-    const utterThis = new SpeechSynthesisUtterance(text);
-    synth.speak(utterThis);
+  const utterThis = new SpeechSynthesisUtterance(text);
+  synth.speak(utterThis);
 }
 
 settings.addEventListener('click', function () {
-    document.forms[0].sentences.value = texts.join('\n');
-    dialog.showModal();
+  document.forms[0].sentences.value = raw;
+  dialog.showModal();
 })
 save.addEventListener('click', function () {
-    texts = document.forms[0].sentences.value.split('\n');
-    localStorage.setItem('texts', JSON.stringify(texts));
-    localStorage.setItem('index', '0');
-    dialog.close();
+  localStorage.setItem('texts', document.forms[0].sentences.value);
+  localStorage.setItem('index', '0');
+  location.reload();
 })
