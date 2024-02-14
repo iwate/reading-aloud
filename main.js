@@ -42,6 +42,7 @@ const next = (seek) => {
     return false
   }
   else {
+    localStorage.setItem('index', index.toString());
     sentence.textContent = texts[index];
     play(texts[index]);
     return true;
