@@ -2,14 +2,18 @@
   "name": "Alouding",
   "description": "Work out tool for English speaking.",
   "type": "privileged",
-  "launch_path": "/index.html",
+  "launch_path": "/reading-aloud/",
+  "start_url": "/reading-aloud/",
+  "display": "fullscreen",
+  "theme_color": "#eee",
+  "background_color": "#eee"
   "icons": {
     "512": "/img/512.png",
     "128": "/img/128.png"
   },
   "developer": {
     "name": "iwate",
-    "url": "https://github.com/iwate/reading-aloud"
+    "url": "https://github.com/iwate/reading-aloud/"
   },
   "default_locale": "en",
   "permissions": {
