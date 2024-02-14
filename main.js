@@ -74,7 +74,7 @@ const settings = document.querySelector('.settings');
 const save = document.querySelector('.save');
 const dialog = document.querySelector('dialog');
 
-sentenceContainer.open = localStorage.getItem('view-sentence') == 'on';
+sentenceContainer.open = localStorage.getItem('view-sentence') != 'off';
 sentenceContainer.addEventListener('toggle', function() {
   localStorage.setItem('view-sentence', sentenceContainer.open ? 'on':'off');
 })
