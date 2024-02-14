@@ -7,10 +7,18 @@
   "display": "fullscreen",
   "theme_color": "#eee",
   "background_color": "#eee",
-  "icons": {
-    "512": "/img/512.png",
-    "128": "/img/128.png"
-  },
+  "icons": [
+    {
+      "src": "/reading-aloud/img/512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/reading-aloud/img/128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    }
+  ],
   "developer": {
     "name": "iwate",
     "url": "https://github.com/iwate/reading-aloud/"
