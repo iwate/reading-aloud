@@ -56,8 +56,8 @@ main {
     margin-left: calc(-26px - 64px);
 }
 .settings {
-    top: 32px;
-    right: 32px;
+    top: 8px;
+    right: 8px;
     svg {
         width: 18px;
         height: 18px;
