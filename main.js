@@ -23,15 +23,12 @@ let texts = JSON.parse(localStorage.getItem('texts') || '[]');
 let index = parseInt(localStorage.getItem('index')||'0');
 
 if (texts.length == 0) {
-    texts = [
-        'How are you doing today?',
-        'Great! How about you?',
-        'I am doing well. Thank you for asking.',
-        'You are welcome.',
-    ]
+  const res = await fetch('default.txt');
+  const body = await res.text();
+  texts = body.split('\n');
 }
 
-next = (seek) => {
+const next = (seek) => {
     if (typeof seek === 'number') {
         index = seek;
     }
