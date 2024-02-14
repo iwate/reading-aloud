@@ -8,8 +8,8 @@
     "128": "/img/128.png"
   },
   "developer": {
-    "name": "Chris Mills",
-    "url": "https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API"
+    "name": "iwate",
+    "url": "https://github.com/iwate/reading-aloud"
   },
   "default_locale": "en",
   "permissions": {
