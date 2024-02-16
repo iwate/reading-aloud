@@ -72,6 +72,7 @@ const record = document.querySelector('.record');
 const replay = document.querySelector('.replay');
 const settings = document.querySelector('.settings');
 const save = document.querySelector('.save');
+const shuffle = document.querySelector('.shuffle');
 const dialog = document.querySelector('dialog');
 
 sentenceContainer.open = localStorage.getItem('view-sentence') != 'off';
@@ -139,4 +140,17 @@ save.addEventListener('click', function () {
   localStorage.setItem('texts', document.forms[0].sentences.value);
   localStorage.setItem('index', '0');
   location.reload();
+})
+shuffle.addEventListener('click', function () {
+  const data = document.forms[0].sentences.value.split('#');
+  
+  if (!data[0].trim()) {
+    data.shift();
+  }
+  else {
+    data[0] = '\n' + data[0];
+  }
+  data.sort((a,b) => Math.random() > 0.5 ? 1 : -1);
+
+  document.forms[0].sentences.value = '#' + data.join('#');
 })
