@@ -79,14 +79,14 @@ sentenceContainer.addEventListener('toggle', function () {
   localStorage.setItem('view-sentence', sentenceContainer.open ? 'on' : 'off');
 })
 
-record.onclick = function () {
+record.addEventListener('click', function () {
   recognition.start();
   diagnostic.textContent = 'Listening...';
-}
+})
 
-replay.onclick = function () {
+replay.addEventListener('click', function () {
   play(texts[index]);
-}
+})
 
 recognition.onresult = function (event) {
   diagnostic.textContent = 'Result received: ';
