@@ -120,10 +120,19 @@ next(index)
 
 
 function normalizeText(text) {
-  return text.toLowerCase()
+  return (' ' + text.toLowerCase())
     .replace(/\s+/g, ' ')
     .replace(/[!?.,]/g, '')
     .replace(/:00/g, '')
+    .replaceAll(" is not ", " isn't ")
+    .replaceAll(" was not ", " wasn't ")
+    .replaceAll(" do not ", " don't ")
+    .replaceAll(" does not ", " doesn't ")
+    .replaceAll(" did not ", " didn't ")
+    .replaceAll(" i am ", " i'm ")
+    .replaceAll(" it is ", " it's ")
+    .replaceAll(" that is ", " that's ")
+    .replaceAll(" we are ", " we're ")
     .trim();
 }
 
