@@ -30,8 +30,11 @@
     <dialog>
         <form>
             <textarea name="sentences"></textarea>
-            <button type="button" class="shuffle">Shuffle</button>
-            <button type="button" class="save">Save</button>
+            <div class="actions">
+                <label><input type="checkbox" name="restart"> Restart</label>
+                <button type="button" class="shuffle">Shuffle</button>
+                <button type="button" class="save">Save</button>
+            </div>
         </form>
     </dialog>
     <script type="module" src="./main.js"></script>

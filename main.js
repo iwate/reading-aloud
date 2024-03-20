@@ -147,7 +147,9 @@ settings.addEventListener('click', function () {
 })
 save.addEventListener('click', function () {
   localStorage.setItem('texts', document.forms[0].sentences.value);
-  localStorage.setItem('index', '0');
+  if (document.forms[0].restart.checked) {
+    localStorage.setItem('index', '0');
+  }
   location.reload();
 })
 shuffle.addEventListener('click', function () {
